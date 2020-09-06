@@ -49,7 +49,7 @@
       <?php endif; ?>
       <div class="form-group">
         <label for="email" class="sr-only">邮箱</label>
-        <input id="email" name="email" type="email" class="form-control" placeholder="邮箱" autofocus>
+        <input id="email" name="email" type="email" class="form-control" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>" placeholder="邮箱" autofocus>
       </div>
       <div class="form-group">
         <label for="password" class="sr-only">密码</label>
