@@ -78,7 +78,9 @@ $held_count = xiu_query('select count(1) from comments where status = \'held\'')
             </ul>
           </div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <canvas id="chart"></canvas>
+        </div>
         <div class="col-md-4"></div>
       </div>
     </div>
@@ -89,6 +91,40 @@ $held_count = xiu_query('select count(1) from comments where status = \'held\'')
 
   <script src="/static/assets/vendors/jquery/jquery.js"></script>
   <script src="/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/static/assets/vendors/chart/Chart.js"></script>
+  <script>
+    var ctx = document.getElementById('chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        datasets: [
+          {
+            data: [<?php echo $post_count; ?>, <?php echo $category_count; ?>, <?php echo $comment_count; ?>],
+            backgroundColor: [
+              'hotpink',
+              'pink',
+              'deeppink',
+            ]
+          },
+          {
+            data: [<?php echo $post_count; ?>, <?php echo $category_count; ?>, <?php echo $comment_count; ?>],
+            backgroundColor: [
+              'hotpink',
+              'pink',
+              'deeppink',
+            ]
+          }
+        ],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+          '文章',
+          '分类',
+          '评论'
+        ]
+      }
+    });
+  </script>
   <script>NProgress.done()</script>
 </body>
 </html>
