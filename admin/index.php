@@ -15,7 +15,7 @@ require '../functions.php';
  session_start();
 
 
-if (empty($_SESSION['is_logged_in'])) {
+if (empty($_SESSION['current_logged_in_user_id'])) {
   // 没有登录标识就代表没有登录
   // 跳转到登录页
   header('Location: /admin/login.php');
