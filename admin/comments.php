@@ -106,12 +106,12 @@ require '../functions.php';
       var $pagination = $('.pagination')
       var $btnBatch = $('.btn-batch')
 
-      // 选中项集合
-      var checkedItems = []
       // 页大小
       var size = 30
       // 当前页码
-       var currentPage = 1
+      var currentPage = parseInt(window.localStorage.getItem('last_comments_page')) || 1
+      // 选中项集合
+       var checkedItems = []
 
       /**
        * 加载指定页数据
@@ -126,9 +126,7 @@ require '../functions.php';
       }
 
       // 页面加载完成过后，发送异步请求获取评论数据
-      $.get('/admin/comment-list.php', { p: 1, s: size }, function (res) {
-        console.log(res)
-        // => { success: true, data: [ ... ], total_count: 100 }
+      $.get('/admin/comment-list.php', { p: currentPage, s: size }, function (res) {
         // 通过模板引擎渲染数据
         var html = $tmpl.render(res)
 
@@ -137,10 +135,12 @@ require '../functions.php';
 
         // 分页组件
         $pagination.twbsPagination({
-          initiateStartPageClick: false, // 否则 onPageClick 第一次就会触发
+          startPage: currentPage,
           totalPages: Math.ceil(res.total_count / size),
+          initiateStartPageClick: false, // 否则 onPageClick 第一次就会触发
           onPageClick: function (e, page) {
             currentPage = page
+            window.localStorage.setItem('last_comments_page', currentPage)
             loadData()
           }
         })
@@ -184,19 +184,19 @@ require '../functions.php';
       // 批量操作
       $btnBatch
         // 批准
-        .on('click', '.btn-info', function (e) {
+        .on('click', '.btn-info', function () {
           $.post('/admin/comment-status.php?id=' + checkedItems.join(','), { status: 'approved' }, function (res) {
             res.success && loadData()
           })
         })
         // 拒绝
-        .on('click', '.btn-warning', function (e) {
+        .on('click', '.btn-warning', function () {
           $.post('/admin/comment-status.php?id=' + checkedItems.join(','), { status: 'rejected' }, function (res) {
             res.success && loadData()
           })
         })
         // 删除
-        .on('click', '.btn-danger', function (e) {
+        .on('click', '.btn-danger', function () {
           $.get('/admin/comment-delete.php', { id: checkedItems.join(',') }, function (res) {
             res.success && loadData()
           })
