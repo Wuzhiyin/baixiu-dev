@@ -133,10 +133,14 @@ require '../functions.php';
       })
 
       // 删除评论
-       $tbody.on('click', '.btn-delete', function () {
-        console.log('btn delete clicked')
+      $tbody.on('click', '.btn-delete', function () {
+        var $tr = $(this).parent().parent()
+        var id = parseInt($tr.data('id'))
+        $.get('/admin/comment-delete.php', { id: id }, function (res) {
+          res.success && $tr.remove()
+        })
       })
-       
+
     })
   </script>
   <script>NProgress.done()</script>
