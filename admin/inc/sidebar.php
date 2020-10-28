@@ -4,7 +4,7 @@ $current_page = isset($current_page) ? $current_page : '';
  ?>
 <div class="aside">
   <div class="profile">
-    <img class="avatar" src="<?php echo $current_user['avatar']; ?>">
+    <img class="avatar" src="<?php echo empty($current_user['avatar']) ? '/static/assets/img/default.png' : $current_user['avatar']; ?>">
     <h3 class="name"><?php echo $current_user['nickname']; ?></h3>
   </div>
   <ul class="nav">

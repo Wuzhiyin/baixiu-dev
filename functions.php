@@ -18,6 +18,8 @@ require_once '../config.php';
     // 如果连接失败报错
      die('<h1>Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error() . '</h1>');
   }
+  // 设置数据库编码
+   mysqli_set_charset($connection, 'utf8');
 
   return $connection;
 }
