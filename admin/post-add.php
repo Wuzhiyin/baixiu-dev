@@ -39,7 +39,7 @@ require '../functions.php';
       <!-- <div class="alert alert-danger">
         <strong>错误！</strong>发生XXX错误
       </div> -->
-      <form class="row">
+      <form class="row" action="/admin/post-add.php" method="post">
         <div class="col-md-9">
           <div class="form-group">
             <label for="title">标题</label>
