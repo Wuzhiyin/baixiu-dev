@@ -190,6 +190,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $(this).siblings('.thumbnail').attr('src', url).fadeIn()
       })
     })
+
+    //slug 预览
+    $('#slug').on('input', function () {
+      $(this).next().children().text($(this).val())
+    })
   </script>
   <script>NProgress.done()</script>
 </body>
