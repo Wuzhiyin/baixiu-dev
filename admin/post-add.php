@@ -179,6 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="/static/assets/vendors/jquery/jquery.js"></script>
   <script src="/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="/static/assets/vendors/simplemde/simplemde.min.js"></script>
+  <script src="/static/assets/vendors/moment/moment.js"></script>
    <script>
     $(function () {
       // 当文件域文件选择发生改变过后，本地预览选择的图片
@@ -201,6 +202,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         element: $("#content")[0],
         autoDownloadFontAwesome: false
       })
+
+      // 发布时间初始值
+      $('#created').val(moment().format('YYYY-MM-DDTHH:mm'))
     })
   </script>
   <script>NProgress.done()</script>
