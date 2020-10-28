@@ -11,14 +11,15 @@ require '../functions.php';
 // 页码
  $page = isset($_GET['p']) && is_numeric($_GET['p']) ? intval($_GET['p']) : 1;
 
+// 页大小
+ $size = isset($_GET['s']) && is_numeric($_GET['s']) ? intval($_GET['s']) : 20;
+
 // 检查页码最小值
  if ($page <= 0) {
-  header('Location: /admin/comment-list.php?p=1');
+  header('Location: /admin/comment-list.php?p=1&s=' . $size);
   exit;
 }
 
-// 页大小
- $size = isset($_GET['s']) && is_numeric($_GET['s']) ? intval($_GET['s']) : 20;
 
 // 查询总条数
  $total_count = intval(xiu_query('select count(1) from comments
@@ -30,7 +31,7 @@ inner join posts on comments.post_id = posts.id')[0][0]);
 // 检查页码最大值
  if ($page > $total_pages) {
   // 跳转到最后一页
-   header('Location: /admin/comment-list.php?p=' . $total_pages);
+  header('Location: /admin/comment-list.php?p=' . $total_pages . '&s=' .$size);
   exit;
 }
 
