@@ -223,24 +223,25 @@ require '../functions.php';
           })
         })
       })
-      
-      /**
-       * 异步上传文件
-       */
-      $('#upload').on('change', function () {
-        // 准备要上传的数据
-         var formData = new FormData()
-        formData.append('file', this.files[0])
 
-        // 发送 AJAX 请求，上传文件
-         var xhr = new XMLHttpRequest()
-        xhr.open('POST', '/admin/upload.php')
-        xhr.addEventListener('load', function () {
-          var res = JSON.parse(xhr.response)
-          console.log(res)
-        })
-        xhr.send(formData)
+      // 发送 AJAX 请求，上传文件
+      $.ajax({
+          url: '/admin/upload.php',
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: formData,
+          type: 'post',
+          success: function (res) {
+            if (res.success) {
+              $('#image').val(res.data).siblings('.thumbnail').attr('src', res.data).fadeIn()
+            } else {
+              $('#image').val('').siblings('.thumbnail').fadeOut()
+              notify(' 上传文件失败')
+            }
+          }
       })
+
 
       // 首次加载数据
        loadData(function (err, data) {
