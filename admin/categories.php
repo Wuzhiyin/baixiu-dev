@@ -169,6 +169,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // 设置每一行的选中状态并触发 上面 👆 的事件
          $tdCheckbox.prop('checked', checked).trigger('change')
       })
+      /**
+       * slug 预览
+       */
+      $('#slug').on('input', function () {
+        $(this).next().children().text($(this).val())
+      })
     })
   </script>
   <script>NProgress.done()</script>
